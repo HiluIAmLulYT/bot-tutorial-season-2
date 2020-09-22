@@ -2,7 +2,13 @@ const Discord = require("discord.js");
 const db = require("quick.db");
 const ms = require("parse-ms");
 
-exports.run = async (client, message, args) => {
+module.exports = {
+    name: "gamble",
+    description: "An efficient way to double your money.",
+    usage: "gamble <bet/amount>",
+run: async (client, message, args) => {
+
+
     const amount = parseInt(args[0]);
     const result = Math.floor(Math.random() * 10);
     const balance = db.get(`account.${message.author.id}.balance`);
@@ -35,15 +41,4 @@ exports.run = async (client, message, args) => {
         return message.channel.send(`Woohoo! You won $${amount}! Good luck, have fun!`);
     }
 }
-
-exports.help = {
-    name: "gamble",
-    description: "An efficient way to double your money.",
-    usage: "gamble <bet/amount>",
-    example: "gamble 500"
-}
-
-exports.conf = {
-    aliases: ["gambling"],
-    cooldown: 5
 }
